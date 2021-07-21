@@ -49,7 +49,7 @@ const Canvas = ({ shapes, actions }) => {
 		}
 	}, [clearCanvas, meta, shapes]);
 
-	const bodyOnKeyPress = useCallback(
+	const bodyOnKeyDown = useCallback(
 		e => {
 			if (e.key === 'Delete' && meta.selected) {
 				deleteShape(meta.selected);
@@ -58,7 +58,7 @@ const Canvas = ({ shapes, actions }) => {
 		[deleteShape, meta]
 	);
 
-	const bodyOnMouseUp = useCallback(() => {
+	const documentOnMouseUp = useCallback(() => {
 		meta.drag = false;
 	}, [meta]);
 
@@ -67,8 +67,8 @@ const Canvas = ({ shapes, actions }) => {
 		render();
 	}, [init, render]);
 
-	useEventListener('keypress', bodyOnKeyPress, document.body);
-	useEventListener('mouseup', bodyOnMouseUp, document.body);
+	useEventListener('keydown', bodyOnKeyDown, document.body);
+	useEventListener('mouseup', documentOnMouseUp, document);
 	useEventListener('resize', windowOnResize);
 
 	useEffect(() => {
