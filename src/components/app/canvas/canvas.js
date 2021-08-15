@@ -120,8 +120,6 @@ const Canvas = ({ shapes, actions }) => {
 						if (meta.context.isPointInPath(path, x, y)) {
 							meta.drag = meta.selected = shape.id;
 							setDraggableShape(shape.id);
-							meta.startDragX = x;
-							meta.startDragY = y;
 							break;
 						}
 					}
@@ -134,15 +132,7 @@ const Canvas = ({ shapes, actions }) => {
 					preventBrowserDefault(e);
 
 					if (meta.drag) {
-						const { x, y } = getCoordinates(e);
-
-						const dx = x - meta.startDragX;
-						const dy = y - meta.startDragY;
-
-						moveShape(dx, dy);
-
-						meta.startDragX = x;
-						meta.startDragY = y;
+						moveShape(e.movementX, e.movementY);
 					}
 				}}
 				ref={canvasRef}
